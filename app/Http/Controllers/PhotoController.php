@@ -50,7 +50,7 @@ class PhotoController extends Controller
             $path = $file->storeAs('public/photos/', $file->getClientOriginalName());
           }
         }
-
+        return redirect('/')->with('success', 'Images Uploaded');
     }
 
     /**
