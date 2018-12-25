@@ -12,16 +12,29 @@ class PhotoController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-    public function index()
+    public $options = [
+        'cars'       =>  'Cars',
+        'computers'  =>  'Computers',
+        'cats'       =>  'Cats'
+      ];
+
+    public function index($cat)
     {
-        $dir = 'storage/photos';
-        $files = array_diff(scandir($dir), array('..', '.'));
-        return view('pages.index')->with('files', $files);
+        if (isset($cat)) {
+          $dir = 'storage/' . $cat;
+          $data = array(
+            'dir'    =>    $dir,
+            'files'  =>    array_diff(scandir($dir), array('..', '.'))
+          );
+          return view('pages.index')->with($data, $this->options);
+        } else {
+          return '<h1>Nothing to display</h1>';
+        }
     }
 
     public function add()
     {
-      return view('pages.add');
+      return view('pages.add')->with('options', $this->options);
     }
 
     /**
@@ -42,17 +55,24 @@ class PhotoController extends Controller
      */
     public function store(Request $request)
     {
-        // print_r($request->all());
+        $dir = $request->dir;
         $files = $request->file('photo');
         if (!empty($files)) {
-          foreach ($files as $file) {
-            // Storage::put($file->getClientOriginalName(), file_get_contents($file));
-            $path = $file->storeAs('public/photos/', $file->getClientOriginalName());
+          foreach ($files as $key => $file) {
+            // Get full filename
+            $fileNameWithExt = $file->getClientOriginalName();
+            // // Get file name without extension
+            // $fileName = pathinfo($fileNameWithExt, PATHINFO_FILENAME);
+            // // Get extension
+            // $fileExt = $file->getClientOriginalExtension();
+            // // Create new filename
+            // $fileNameToStore = $dir . '_' . time() . '_' . $key . '.' . $fileExt;
+            // // return $dir;
+            $path = $file->storeAs('public/' . $dir . '/', $fileNameWithExt);
           }
         }
-        return redirect('/')->with('success', 'Images Uploaded');
+        return redirect('/' . $dir)->with('success', 'Images Uploaded');
     }
-
     /**
      * Display the specified resource.
      *

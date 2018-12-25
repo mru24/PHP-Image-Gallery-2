@@ -6,8 +6,11 @@
   {!!Form::open(['action' => 'PhotoController@store', 'method' => 'POST', 'enctype' => 'multipart/form-data'])!!}
     <h4 class="border-bottom">Select Images</h1>
     <div class="form-group">
-      {{Form::file('photo[]', array('Multiple' => true, 'class' => 'inputfile'))}}
-      {{-- {{Form::label('file', 'Choose a files')}} --}}
+      {{Form::select('dir', $options, '', ['class' => 'form-control'])}}
+    </div>
+    <div class="form-group">
+      {{Form::label('Select Images')}}
+      {{Form::file('photo[]', array('Multiple' => true, 'class' => 'form-control-file'))}}
     </div>
     {{Form::submit('Upload', ['class' => 'btn btn-success'])}}
   {!!Form::close()!!}

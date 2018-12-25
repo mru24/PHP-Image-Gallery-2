@@ -7,7 +7,7 @@
 <div class="gallery">
   @foreach ($files as $file)
     <div class="image">
-      <img src="storage/photos/{{ $file }}" alt="{{ $file }}_image">
+      <img src="{{ $dir }}/{{ $file }}" alt="{{ $file }}_image">
     </div>
   @endforeach
 </div>

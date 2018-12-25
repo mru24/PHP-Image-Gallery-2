@@ -14,3 +14,4 @@
 Route::get('/', 'PhotoController@index');
 Route::get('/add', 'PhotoController@add');
 Route::post('/store', 'PhotoController@store');
+Route::get('/{cat?}', 'PhotoController@index');
