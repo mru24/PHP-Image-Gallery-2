@@ -12,6 +12,8 @@
 */
 
 Route::get('/', 'PhotoController@index');
+Route::get('/gallery/{cat}', 'PhotoController@gallery');
 Route::get('/add', 'PhotoController@add');
 Route::post('/store', 'PhotoController@store');
-Route::get('/{cat?}', 'PhotoController@index');
+Route::delete('/{dir}/{file}', 'PhotoController@destroy');
+Route::get('/navbar', 'PhotoController@navbar');

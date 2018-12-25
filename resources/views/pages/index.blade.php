@@ -2,17 +2,10 @@
 
 @section('content')
 
-<h1 class="title">Image Gallery</h1>
-@if (!empty($files))
-<div class="gallery">
-  @foreach ($files as $file)
-    <div class="image">
-      <img src="{{ $dir }}/{{ $file }}" alt="{{ $file }}_image">
-    </div>
-  @endforeach
-</div>
-@else
-  <h1>Nothing to show here yet!</h1>
-  <small>come back later</small>
-@endif
+@foreach ($options as $key => $option)
+  <div class="box m-2 py-3 px-5 border">
+    <a href="/gallery/{{ $option }}" class="text-uppercase lead">{{$option}}</a>
+  </div>
+@endforeach
+
 @endsection

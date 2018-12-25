@@ -10506,7 +10506,7 @@ a:visited {
   color: inherit !important;
 }
 
-.navbar {
+/* .navbar {
   height: 90px;
   background: #666;
   color: #eee;
@@ -10524,10 +10524,13 @@ a:visited {
 
 .navbar ul li a {
   font-size: 19px;
-}
+} */
 
 .title {
   margin: 20px 0;
+  text-transform: uppercase;
+  border-bottom: 1px solid #999;
+  margin: 30px 20px;
 }
 
 .gallery {
@@ -10542,11 +10545,22 @@ a:visited {
   margin-bottom: 5px;
   overflow: hidden;
   height: auto;
+  position: relative;
 }
 
 .gallery .image img {
   width: 100% !important;
   transition: 0.4s;
+}
+
+.gallery .image form {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+.gallery .image form input {
+  cursor: pointer;
 }
 
 .gallery .image:hover img {
@@ -10566,4 +10580,3 @@ a:visited {
 .alert {
   margin: 20px 0;
 }
-

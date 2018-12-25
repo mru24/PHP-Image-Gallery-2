@@ -13,24 +13,28 @@ class PhotoController extends Controller
      * @return \Illuminate\Http\Response
      */
     public $options = [
-        'cars'       =>  'Cars',
-        'computers'  =>  'Computers',
-        'cats'       =>  'Cats'
-      ];
+      'cars'       =>  'cars',
+      'computers'  =>  'computers',
+      'cats'       =>  'cats'
+    ];
 
-    public function index($cat)
-    {
-        if (isset($cat)) {
-          $dir = 'storage/' . $cat;
-          $data = array(
-            'dir'    =>    $dir,
-            'files'  =>    array_diff(scandir($dir), array('..', '.'))
-          );
-          return view('pages.index')->with($data, $this->options);
-        } else {
-          return '<h1>Nothing to display</h1>';
-        }
+    public function index() {
+      $data = array(
+        'options'  =>  $this->options,
+        'title'      =>  'Home'
+      );
+      return view('pages.index')->with($data);
     }
+
+    public function gallery($cat)
+    {
+        $dir = $cat;
+        $data = array(
+          'dir'    =>    $dir,
+          'files'  =>    array_diff(scandir('storage/'.$dir), array('..', '.'))
+        );
+        return view('pages.gallery')->with($data, $this->options);
+      }
 
     public function add()
     {
@@ -71,7 +75,7 @@ class PhotoController extends Controller
             $path = $file->storeAs('public/' . $dir . '/', $fileNameWithExt);
           }
         }
-        return redirect('/' . $dir)->with('success', 'Images Uploaded');
+        return redirect('/gallery/' . $dir)->with('success', 'Images Uploaded');
     }
     /**
      * Display the specified resource.
@@ -113,8 +117,12 @@ class PhotoController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy($dir, $file)
     {
-        //
+      if(Storage::delete('/public/'.$dir.'/'.$file)) {
+
+        return redirect('/gallery/'.$dir)->with('success', 'Photo Deleted');
+
     }
+  }
 }

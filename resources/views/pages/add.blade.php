@@ -13,6 +13,7 @@
       {{Form::file('photo[]', array('Multiple' => true, 'class' => 'form-control-file'))}}
     </div>
     {{Form::submit('Upload', ['class' => 'btn btn-success'])}}
+    <a href="/" class="btn btn-warning float-right">Cancel</a>
   {!!Form::close()!!}
 </div>
 
